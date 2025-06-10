@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPMB SEKOLAH MENENGAH PERTAMA NEGERI 2 JATILAWANG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e6f3ff;
+        }
+        
+        .hero-section {
+            background-image: url('https://i.postimg.cc/2yk5QCQD/Whats-App-Image-2025-05-20-at-19-41-32.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #1d4ed8;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #1d4ed8;
+        }
+        
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% - 12px);
+            background-color: #1d4ed8;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .facility-card {
+            transition: all 0.3s ease;
+        }
+        
+        .facility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        .profile-card {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .extracurricular-item {
+            transition: all 0.3s ease;
+        }
+        
+        .extracurricular-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Improved extracurricular styling */
+        .extracurricular-content {
+            flex: 1;
+            min-width: 0;
+            padding-right: 4px;
+        }
+        
+        .extracurricular-title {
+            font-weight: 600;
+            color: #1e40af;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+        
+        .extracurricular-desc {
+            color: #4b5563;
+            font-size: 0.875rem;
+            line-height: 1.2;
+        }
+        
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 1rem;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        /* Gallery styles */
+        .gallery-tab {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-tab.active {
+            background-color: #1d4ed8;
+            color: white;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            height: 0;
+            padding-bottom: 75%; /* 4:3 Aspect Ratio */
+        }
+        
+        .gallery-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            z-index: 101;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Lazy loading for images */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+        
+        /* Schedule box styling */
+        .schedule-box {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .schedule-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* Optimize images for faster loading */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Responsive improvements for mobile */
+        @media (max-width: 640px) {
+            .extracurricular-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            
+            .extracurricular-item {
+                padding: 0.75rem;
+            }
+            
+            .extracurricular-icon {
+                padding: 0.5rem;
+                margin-right: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-blue-50">
+    <!-- Header Section -->
+    <header class="bg-blue-50 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row justify-between">
+                <!-- Left side with logos and school name -->
+                <div class="flex flex-col">
+                    <!-- Logos at top left -->
+                    <div class="flex items-center justify-center md:justify-start">
+                        <img src="https://i.imgur.com/Kv4Z0VM.jpeg" alt="Logo Left" class="h-12 mr-2 object-contain">
+                        <img src="https://i.imgur.com/tfM1aNl.png" alt="Logo Center" class="h-12 mr-2 object-contain">
+                        <img src="https://i.postimg.cc/zXVdFwkJ/Whats-App-Image-2025-05-20-at-20-05-42-1-removebg-preview.png" alt="Logo Right" class="h-12 object-contain">
+                    </div>
+                    
+                    <!-- School Name below logos -->
+                    <div class="mt-2 text-center md:text-left">
+                        <h1 class="text-base font-bold text-blue-800 leading-tight">SEKOLAH MENENGAH PERTAMA NEGERI 2 JATILAWANG</h1>
+                    </div>
+                </div>
+                
+                <!-- Right side with navigation -->
+                <div class="mt-4 md:mt-0 flex items-center justify-center md:justify-end">
+                    <!-- Navigation (Desktop) -->
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#beranda" class="text-blue-800 hover:text-blue-600 font-medium">Beranda</a>
+                        <a href="#profil" class="text-blue-800 hover:text-blue-600 font-medium">Profil</a>
+                        <a href="#pendaftaran" class="text-blue-800 hover:text-blue-600 font-medium">Pendaftaran</a>
+                        <a href="#fasilitas" class="text-blue-800 hover:text-blue-600 font-medium">Fasilitas</a>
+                        <a href="#galeri" class="text-blue-800 hover:text-blue-600 font-medium">Galeri</a>
+                        <a href="#kontak" class="text-blue-800 hover:text-blue-600 font-medium">Kontak</a>
+                    </nav>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden text-blue-800 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation (Hidden by default) -->
+            <nav id="mobileMenu" class="hidden flex-col md:hidden mt-4 space-y-2">
+                <a href="#beranda" class="text-blue-800 hover:text-blue-600 font-medium py-2">Beranda</a>
+                <a href="#profil" class="text-blue-800 hover:text-blue-600 font-medium py-2">Profil</a>
+                <a href="#pendaftaran" class="text-blue-800 hover:text-blue-600 font-medium py-2">Pendaftaran</a>
+                <a href="#fasilitas" class="text-blue-800 hover:text-blue-600 font-medium py-2">Fasilitas</a>
+                <a href="#galeri" class="text-blue-800 hover:text-blue-600 font-medium py-2">Galeri</a>
+                <a href="#kontak" class="text-blue-800 hover:text-blue-600 font-medium py-2">Kontak</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero-section min-h-[80vh] flex items-center">
+        <div class="container mx-auto px-4 py-16 hero-content text-center">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">WUJUDKAN MASA DEPAN GEMILANG BERSAMA SEKOLAH MENENGAH PERTAMA NEGERI 2 JATILAWANG</h1>
+                <p class="text-xl text-white mb-8">Membentuk Generasi Unggul, Kreatif, dan Berprestasi dengan Pendidikan Berkualitas</p>
+                <div class="flex justify-center">
+                    <a href="#pendaftaran" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg cta-button">
+                        DAFTAR SEKARANG
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profil Section -->
+    <section id="profil" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-blue-800 mb-8 section-title">Profil Sekolah</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Visi Sekolah Card -->
+                    <div class="bg-blue-100 rounded-lg shadow-lg p-6 profile-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-blue-700">Visi Sekolah</h3>
+                        </div>
+                        <p class="text-gray-700 text-lg">Menuju sekolah berkarakter unggul, kreatif, maju prestasinya dan berwawasan lingkungan.</p>
+                    </div>
+                    
+                    <!-- Misi Sekolah Card -->
+                    <div class="bg-blue-100 rounded-lg shadow-lg p-6 profile-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-blue-700">Misi Sekolah</h3>
+                        </div>
+                        <p class="text-gray-700 text-lg">Membentuk karakter unggul, menumbuhkembangkan potensi dan prestasi diri, dengan melaksanakan pembelajaran kreatif, bimbingan secara efektif, mengamalkan ajaran agama dan peduli lingkungan.</p>
+                    </div>
+                </div>
+                
+                <!-- Komitmen Kami Card -->
+                <div class="bg-blue-100 rounded-lg shadow-lg p-6 profile-card">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-blue-700">Komitmen Kami</h3>
+                    </div>
+                    <p class="text-gray-700 text-lg mb-4">SEKOLAH MENENGAH PERTAMA NEGERI 2 JATILAWANG berkomitmen untuk memberikan pendidikan berkualitas yang mengembangkan potensi akademis dan non-akademis setiap siswa. Dengan lingkungan belajar yang kondusif dan tenaga pengajar profesional, kami mempersiapkan siswa menjadi generasi unggul yang siap menghadapi tantangan masa depan.</p>
+                    
+                    <p class="text-gray-700 text-lg">Kami menerapkan pendekatan pembelajaran yang kreatif dan inovatif, didukung dengan fasilitas modern dan program ekstrakurikuler yang beragam untuk mengembangkan bakat dan minat siswa secara optimal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pendaftaran Section -->
+    <section id="pendaftaran" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-blue-800 mb-8 section-title">Sistem Penerimaan Murid Baru (SPMB) 2025</h2>
+                
+                <div class="bg-blue-100 rounded-lg shadow-lg p-8 mb-10">
+                    <h3 class="text-2xl font-semibold text-blue-700 mb-6">Persyaratan Utama</h3>
+                    <ul class="list-disc pl-6 text-gray-700 space-y-3">
+                        <li>Berusia maksimal 15 tahun pada 1 Juli 2025</li>
+                        <li>Memiliki Scan Ijasah SD/Sederajat atau Sertifikat Nilai Satuan Pendidikan (SNSP) (file pdf/jpg)</li>
+                        <li>Pas foto berwarna terbaru ukuran 3 x 4 sebanyak 2 lembar (file jpg)</li>
+                        <li>Scan Akta Kelahiran (file pdf/jpg)</li>
+                        <li>Scan Kartu Keluarga (minimal diterbitkan 1 tahun sebelum SPMB) (file pdf/jpg)</li>
+                        <li>Scan Piagam Penghargaan dan Surat Rekomendasi dari Korwilcam (jika memiliki kejuaraan) (file pdf)</li>
+                        <li>Scan Surat Pernyataan dari orang tua/wali (file pdf/jpg)</li>
+                        <li>Scan Surat Bukti Keikutsertaan Keluarga Tidak Mampu (PKH, KIP, PIP, dan lainnya) (file pdf/jpg)</li>
+                        <li>Scan Surat Keterangan Perpindahan Tugas orang tua dari Instansi/Lembaga/Kantor Perusahaan/BUMD/BUMN (file pdf/jpg)</li>
+                    </ul>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <!-- Jadwal Pendaftaran - Adjusted to fit content better -->
+                    <div class="bg-blue-100 rounded-lg shadow-lg p-6 h-full">
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-6">Jadwal Pendaftaran</h3>
+                        <div class="flex flex-col justify-between h-full">
+                            <div class="space-y-4">
+                                <div class="timeline-item pb-4">
+                                    <h4 class="font-semibold text-blue-800">PEMBUATAN AKUN</h4>
+                                    <p class="text-gray-700">19 - 25 Juni 2025</p>
+                                </div>
+                                <div class="timeline-item pb-4">
+                                    <h4 class="font-semibold text-blue-800">PENDAFTARAN SPMB ONLINE</h4>
+                                    <p class="text-gray-700">23 - 25 Juni 2025</p>
+                                </div>
+                                <div class="timeline-item pb-4">
+                                    <h4 class="font-semibold text-blue-800">PENGUMUMAN</h4>
+                                    <p class="text-gray-700">30 Juni 2025</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h4 class="font-semibold text-blue-800">PENDAFTARAN ULANG</h4>
+                                    <p class="text-gray-700">1 - 3 Juli 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- Persentase Jalur Masuk Card with Pie Chart -->
+                        <div class="bg-blue-100 rounded-lg shadow-lg p-6">
+                            <h3 class="text-2xl font-semibold text-blue-700 mb-6 text-center">Persentase Jalur Masuk</h3>
+                            <div class="flex justify-center">
+                                <div class="w-64 h-64">
+                                    <canvas id="jalurMasukChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #3b82f6;"></div>
+                                    <span>Domisili (45%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #10b981;"></div>
+                                    <span>Prestasi (30%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #f59e0b;"></div>
+                                    <span>Afirmasi (20%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #ef4444;"></div>
+                                    <span>Mutasi (5%)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Daya Tampung Card -->
+                        <div class="bg-blue-100 rounded-lg shadow-lg p-6">
+                            <h3 class="text-2xl font-semibold text-blue-700 mb-4 text-center">Daya Tampung</h3>
+                            <div class="flex flex-col items-center">
+                                <div class="text-5xl font-bold text-blue-800 mb-2">224</div>
+                                <p class="text-xl text-gray-700 mb-4">Total Murid</p>
+                                <div class="flex items-center justify-center space-x-2 text-lg">
+                                    <div class="bg-blue-200 px-3 py-1 rounded-lg">
+                                        <span class="font-semibold">32</span> Murid
+                                    </div>
+                                    <span>×</span>
+                                    <div class="bg-blue-200 px-3 py-1 rounded-lg">
+                                        <span class="font-semibold">7</span> Rombel
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="https://spmb.banyumaskab.go.id/" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full shadow-lg text-xl cta-button">
+                        DAFTAR SEKARANG DI SPMB ONLINE
+                    </a>
+                    <p class="mt-4 text-gray-600">Klik tombol di atas untuk mengakses website pendaftaran resmi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fasilitas Section -->
+    <section id="fasilitas" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-blue-800 mb-8 section-title">Fasilitas & Ekstrakurikuler</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-6">Fasilitas Sekolah</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-blue-100 rounded-lg p-6 facility-card">
+                                <div class="text-blue-600 text-3xl mb-3">
+                                    <i class="fas fa-desktop"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2">Laboratorium Komputer</h4>
+                                <p class="text-gray-600">Dilengkapi dengan perangkat komputer modern untuk pembelajaran teknologi informasi</p>
+                            </div>
+                            
+                            <div class="bg-blue-100 rounded-lg p-6 facility-card">
+                                <div class="text-blue-600 text-3xl mb-3">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2">Laboratorium IPA</h4>
+                                <p class="text-gray-600">Fasilitas lengkap untuk praktikum dan eksperimen ilmiah</p>
+                            </div>
+                            
+                            <div class="bg-blue-100 rounded-lg p-6 facility-card">
+                                <div class="text-blue-600 text-3xl mb-3">
+                                    <i class="fas fa-running"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2">Gedung Olahraga</h4>
+                                <p class="text-gray-600">Sarana olahraga indoor untuk berbagai aktivitas fisik</p>
+                            </div>
+                            
+                            <div class="bg-blue-100 rounded-lg p-6 facility-card">
+                                <div class="text-blue-600 text-3xl mb-3">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2">Perpustakaan</h4>
+                                <p class="text-gray-600">Koleksi buku yang lengkap untuk mendukung pembelajaran</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-6">Ekstrakurikuler</h3>
+                        <div class="bg-blue-100 rounded-lg p-6">
+                            <!-- Improved extracurricular grid for better mobile responsiveness -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 extracurricular-grid">
+                                <!-- Fixed extracurricular items with better text handling -->
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-futbol"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">Sepak Bola</div>
+                                            <div class="extracurricular-desc">Mengembangkan keterampilan bermain bola</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-fist-raised"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">Pencak Silat</div>
+                                            <div class="extracurricular-desc">Bela diri tradisional Indonesia</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-music"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">Tari</div>
+                                            <div class="extracurricular-desc">Seni tari tradisional dan modern</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-drum"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">Marching Band</div>
+                                            <div class="extracurricular-desc">Latihan musik dan formasi</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-campground"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">Pramuka</div>
+                                            <div class="extracurricular-desc">Kegiatan kepanduan</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-first-aid"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">PMR</div>
+                                            <div class="extracurricular-desc">Palang Merah Remaja</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-guitar"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">Karawitan</div>
+                                            <div class="extracurricular-desc">Seni musik tradisional Jawa</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-200 rounded-lg p-3 extracurricular-item">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-600 text-white rounded-full p-2 mr-2 flex-shrink-0 extracurricular-icon">
+                                            <i class="fas fa-volleyball-ball"></i>
+                                        </div>
+                                        <div class="extracurricular-content">
+                                            <div class="extracurricular-title">Voli</div>
+                                            <div class="extracurricular-desc">Olahraga tim bola voli</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galeri" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold text-blue-800 mb-8 section-title">Galeri Foto</h2>
+                
+                <!-- Gallery Tabs -->
+                <div class="flex flex-wrap justify-center mb-8">
+                    <button class="gallery-tab active m-2 px-6 py-2 rounded-full bg-blue-600 text-white" data-category="all">
+                        Semua
+                    </button>
+                    <button class="gallery-tab m-2 px-6 py-2 rounded-full bg-blue-100 text-blue-800" data-category="fasilitas">
+                        Fasilitas
+                    </button>
+                    <button class="gallery-tab m-2 px-6 py-2 rounded-full bg-blue-100 text-blue-800" data-category="akademik">
+                        Akademik
+                    </button>
+                    <button class="gallery-tab m-2 px-6 py-2 rounded-full bg-blue-100 text-blue-800" data-category="ekstrakurikuler">
+                        Ekstrakurikuler
+                    </button>
+                    <button class="gallery-tab m-2 px-6 py-2 rounded-full bg-blue-100 text-blue-800" data-category="kegiatan">
+                        Kegiatan
+                    </button>
+                </div>
+                
+                <!-- Gallery Grid -->
+                <div class="gallery-grid">
+                    <!-- Fasilitas Images -->
+                    <div class="gallery-item" data-category="fasilitas">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/hGQQxymT/Whats-App-Image-2025-05-23-at-10-59-35.jpg" alt="Fasilitas 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="fasilitas">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/XJMGgfKh/Whats-App-Image-2025-05-23-at-10-57-39.jpg" alt="Fasilitas 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="fasilitas">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/kgpt2327/Whats-App-Image-2025-05-23-at-10-58-02.jpg" alt="Fasilitas 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="fasilitas">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/fbnvNX1K/Whats-App-Image-2025-05-23-at-17-33-12-7.jpg" alt="Fasilitas 4" loading="lazy">
+                    </div>
+                    
+                    <!-- Akademik Images -->
+                    <div class="gallery-item" data-category="akademik">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/sxNp0Zp5/Whats-App-Image-2025-05-20-at-19-41-31.jpg" alt="Akademik 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="akademik">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/vHCrrf8s/Whats-App-Image-2025-05-23-at-17-33-11-1.jpg" alt="Akademik 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="akademik">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/pdJKMSfW/Whats-App-Image-2025-05-20-at-19-41-31-1.jpg" alt="Akademik 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="akademik">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/y6tgtKMh/Whats-App-Image-2025-05-23-at-17-39-56.jpg" alt="Akademik 4" loading="lazy">
+                    </div>
+                    
+                    <!-- Ekstrakurikuler Images -->
+                    <div class="gallery-item" data-category="ekstrakurikuler">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/N0dL4v8H/Whats-App-Image-2025-05-20-at-19-41-32-6.jpg" alt="Ekstrakurikuler 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="ekstrakurikuler">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/Jnt0YYKd/Whats-App-Image-2025-05-20-at-19-41-32-7.jpg" alt="Ekstrakurikuler 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="ekstrakurikuler">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/c1rFyQJp/Whats-App-Image-2025-05-20-at-19-41-32-3.jpg" alt="Ekstrakurikuler 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="ekstrakurikuler">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/XY0LCmgW/Whats-App-Image-2025-05-20-at-19-41-32-5.jpg" alt="Ekstrakurikuler 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="ekstrakurikuler">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/52q3qgPC/Whats-App-Image-2025-05-20-at-19-41-32-1.jpg" alt="Ekstrakurikuler 5" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="ekstrakurikuler">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/65K4LXFM/Whats-App-Image-2025-05-20-at-19-41-32-4.jpg" alt="Ekstrakurikuler 6" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="ekstrakurikuler">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/x1rxPcnW/Whats-App-Image-2025-05-23-at-17-46-48.jpg" alt="Ekstrakurikuler 7" loading="lazy">
+                    </div>
+                    
+                    <!-- Kegiatan Images -->
+                    <div class="gallery-item" data-category="kegiatan">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/FHjPCNK1/Whats-App-Image-2025-05-23-at-17-33-12-6.jpg" alt="Kegiatan 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="kegiatan">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/XJvQv5ky/Whats-App-Image-2025-05-23-at-17-33-12-5.jpg" alt="Kegiatan 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="kegiatan">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/0jMnYq3k/Whats-App-Image-2025-05-20-at-19-41-32-2.jpg" alt="Kegiatan 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="kegiatan">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/XqR8xzSw/Whats-App-Image-2025-05-23-at-17-33-12-3.jpg" alt="Kegiatan 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="kegiatan">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/BZjfYPf6/Whats-App-Image-2025-05-23-at-17-33-12.jpg" alt="Kegiatan 5" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="kegiatan">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/FFw52Fhx/Whats-App-Image-2025-05-23-at-17-33-12-2.jpg" alt="Kegiatan 6" loading="lazy">
+                    </div>
+                    <div class="gallery-item" data-category="kegiatan">
+                        <img class="lazy-load" data-src="https://i.postimg.cc/9MzKnKSS/Whats-App-Image-2025-05-23-at-17-33-12-1.jpg" alt="Kegiatan 7" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Modal -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-700 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold mb-6">Wujudkan Masa Depan Cerah Bersama Kami!</h2>
+                <p class="text-xl mb-8">SEKOLAH MENENGAH PERTAMA NEGERI 2 JATILAWANG siap menjadi mitra terbaik dalam mengembangkan potensi putra-putri Anda. Jangan lewatkan kesempatan untuk menjadi bagian dari keluarga besar kami.</p>
+                <a href="https://spmb.banyumaskab.go.id/" target="_blank" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-100 transition duration-300 text-lg">DAFTAR SEKARANG</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-blue-800 mb-8 section-title">Kontak Kami</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-6">Contact Person</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start bg-blue-100 p-4 rounded-lg">
+                                <span class="bg-blue-200 text-blue-600 rounded-full p-2 mr-3 mt-1">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <div>
+                                    <p class="font-medium">Akhmad Suhel, S.Pd.</p>
+                                    <p class="text-gray-600">Telp./WA: 082210522557</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start bg-blue-100 p-4 rounded-lg">
+                                <span class="bg-blue-200 text-blue-600 rounded-full p-2 mr-3 mt-1">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <div>
+                                    <p class="font-medium">Setyawan Bagus P, S.Pd.</p>
+                                    <p class="text-gray-600">Telp./WA: 083863312549</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start bg-blue-100 p-4 rounded-lg">
+                                <span class="bg-blue-200 text-blue-600 rounded-full p-2 mr-3 mt-1">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <div>
+                                    <p class="font-medium">Rofikun Nurlaeli, S.Pd.</p>
+                                    <p class="text-gray-600">Telp./WA: 085647050574</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start bg-blue-100 p-4 rounded-lg">
+                                <span class="bg-blue-200 text-blue-600 rounded-full p-2 mr-3 mt-1">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <div>
+                                    <p class="font-medium">Riangga Dwi M., S.Pd.</p>
+                                    <p class="text-gray-600">Telp./WA: 082133167969</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-6">Alamat Sekolah</h3>
+                        <div class="bg-blue-100 rounded-lg p-6">
+                            <p class="flex items-start mb-4">
+                                <span class="text-blue-600 mr-3 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                                <span>
+                                    Desa Gentawangi RT 03 / RW 02<br>
+                                    Dusun: Gentawangi<br>
+                                    Desa/Kelurahan: Gentawangi<br>
+                                    Kecamatan: Kec. Jatilawang<br>
+                                    Kabupaten: Kab. Banyumas
+                                </span>
+                            </p>
+                            
+                            <div class="mt-6">
+                                <h4 class="font-medium mb-3">Ikuti Kami:</h4>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="bg-blue-200 text-blue-600 rounded-full p-3 social-icon">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" class="bg-blue-200 text-blue-600 rounded-full p-3 social-icon">
+                                        <i class="fab fa-tiktok"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col items-center">
+                <div class="text-center">
+                    <h3 class="text-lg font-bold">SEKOLAH MENENGAH PERTAMA</h3>
+                    <h3 class="text-lg font-bold">NEGERI 2 JATILAWANG</h3>
+                </div>
+                <p class="mt-4">&copy; 2025 SEKOLAH MENENGAH PERTAMA NEGERI 2 JATILAWANG. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Create pie chart for Jalur Masuk
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('jalurMasukChart').getContext('2d');
+            const jalurMasukChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Domisili', 'Prestasi', 'Afirmasi', 'Mutasi'],
+                    datasets: [{
+                        data: [45, 30, 20, 5],
+                        backgroundColor: [
+                            '#3b82f6', // Blue
+                            '#10b981', // Green
+                            '#f59e0b', // Yellow
+                            '#ef4444'  // Red
+                        ],
+                        borderColor: '#e6f3ff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${percentage}% (${value} murid)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Gallery functionality with optimized image loading
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lazy loading images with IntersectionObserver
+            const lazyLoadImages = () => {
+                if ('IntersectionObserver' in window) {
+                    const imageObserver = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+                                img.src = img.dataset.src;
+                                img.classList.add('loaded');
+                                imageObserver.unobserve(img);
+                            }
+                        });
+                    }, {
+                        rootMargin: '100px 0px', // Load images 100px before they come into view
+                        threshold: 0.1
+                    });
+                    
+                    document.querySelectorAll('.lazy-load').forEach(img => {
+                        imageObserver.observe(img);
+                    });
+                } else {
+                    // Fallback for browsers that don't support IntersectionObserver
+                    const lazyImages = document.querySelectorAll('.lazy-load');
+                    lazyImages.forEach(img => {
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                    });
+                }
+            };
+            
+            // Initialize lazy loading
+            lazyLoadImages();
+            
+            // Gallery filtering
+            const galleryTabs = document.querySelectorAll('.gallery-tab');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    galleryTabs.forEach(t => {
+                        t.classList.remove('active', 'bg-blue-600', 'text-white');
+                        t.classList.add('bg-blue-100', 'text-blue-800');
+                    });
+                    tab.classList.add('active', 'bg-blue-600', 'text-white');
+                    tab.classList.remove('bg-blue-100', 'text-blue-800');
+                    
+                    // Filter gallery items
+                    const category = tab.getAttribute('data-category');
+                    
+                    galleryItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Image modal functionality
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeBtn = document.getElementsByClassName('close')[0];
+            
+            galleryItems.forEach(item => {
+                const img = item.querySelector('img');
+                
+                img.addEventListener('click', () => {
+                    modal.style.display = 'flex';
+                    modalImg.src = img.src || img.dataset.src;
+                });
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94c61c1407b0dfb7',t:'MTc0OTM2MTgwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
